@@ -5,7 +5,8 @@ const Logo = () => {
 	return (
 		<Link href="/">
 			<div>
-				<img
+				{/** biome-ignore lint/performance/noImgElement: <explanation> */}
+<img
 					src="https://www.shutterstock.com/image-vector/greek-god-dionysus-logo-design-1719450154"
 					alt="logo"
 					width={50}

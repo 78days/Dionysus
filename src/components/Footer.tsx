@@ -16,7 +16,7 @@ const routes = [
 ];
 const Footer = (props: Props) => {
 	return (
-		<footer className="mt-auto flex flex-col items-center justify-center py-16 border-white/10 px-3 sm:px-9 text-xs  text-white/25">
+		<footer className="mt-auto flex flex-col items-center justify-center py-16 border-white/10 px-3 sm:px-9 text-xs  text-white/25  mx-100">
 			Footer
 			<ul className="flex gap-x-5 flex-wrap justify-center">
 				{routes.map((route) => (
