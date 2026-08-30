@@ -1,32 +1,41 @@
+import { div } from "framer-motion/client";
 import Link from "next/link";
-import path from "path";
-import React from "react";
-
-type Props = {};
 
 const routes = [
-	{
-		path: "/terms-conditions",
-		name: "Terms & Conditions",
-	},
-	{
-		path: "/privacy-policy",
-		name: "Privacy Policy",
-	},
+  {
+    path: "/terms-conditions",
+    name: "Terms & Conditions",
+  },
+  {
+    path: "/privacy-policy",
+    name: "Privacy Policy",
+  },
 ];
-const Footer = (props: Props) => {
-	return (
-		<footer className="mt-auto flex flex-col items-center justify-center py-16 border-white/10 px-3 sm:px-9 text-xs  text-white/25  mx-100">
-			Footer
-			<ul className="flex gap-x-5 flex-wrap justify-center">
-				{routes.map((route) => (
-					<li key={route.path}>
-						<Link href={route.path}>{route.name}</Link>
-					</li>
-				))}
-			</ul>
-		</footer>
-	);
+
+const Footer = () => {
+  return (
+	
+    <footer className="mt-[60%] border-t border-white/10 bg-transparent ">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6 lg:px-8">
+        <p className="text-sm text-white/40">
+          © {new Date().getFullYear()} All rights reserved.
+        </p>
+
+        <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {routes.map((route) => (
+            <li key={route.path}>
+              <Link
+                href={route.path}
+                className="text-sm text-white/40 transition-colors hover:text-white/70"
+              >
+                {route.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
