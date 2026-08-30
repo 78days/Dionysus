@@ -1,8 +1,8 @@
 import H1 from "@/components/H1";
-import axios from "axios";
+import { db } from "@/prisma/db";
 import { Metadata } from "next";
 import Image from "next/image";
-import { title } from "process";
+import { notFound } from "next/navigation";
 
 type EventPageProps = {
   params: {
@@ -19,14 +19,13 @@ export  function generateMetadata({params} : EventPageProps)  : Metadata{
   }
  }
 export default async function EventPage({ params }: EventPageProps) {
-  const response = await axios.get(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${params.slug}`
-   );
+  const event = await db.orm.public.Event
+    .where({ slug: params.slug })
+    .first();
 
-   
-
-
-  const event = response.data;
+  if (!event) {
+    notFound();
+  }
 
   return (
     <main className="min-h-screen">

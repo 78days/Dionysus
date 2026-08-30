@@ -1,5 +1,4 @@
-
-import { db } from "./db";
+import { db } from "./db.ts";
 
 const events = [
   {
@@ -8,7 +7,7 @@ const events = [
     slug: "dj-practice-session",
     city: "Austin",
     location: "Austin Music Hall",
-    date: new Date("2030-10-12T00:00:00.000Z"),
+    date: "2030-10-12T00:00:00.000Z",
     organizerName: "DJ Inc.",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -21,7 +20,7 @@ const events = [
     slug: "harmony-festival",
     city: "Austin",
     location: "Austin Convention Center",
-    date: new Date("2030-11-15T00:00:00.000Z"),
+    date: "2030-11-15T00:00:00.000Z",
     organizerName: "Music Enthusiasts LLC",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -34,7 +33,7 @@ const events = [
     slug: "3d-animation-workshop",
     city: "Austin",
     location: "Austin Convention Center",
-    date: new Date("2030-12-08T00:00:00.000Z"),
+    date: "2030-12-08T00:00:00.000Z",
     organizerName: "3D Animators Inc.",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -47,7 +46,7 @@ const events = [
     slug: "rock-the-city-concert",
     city: "Austin",
     location: "Austin Music Hall",
-    date: new Date("2030-11-18T00:00:00.000Z"),
+    date: "2030-11-18T00:00:00.000Z",
     organizerName: "Rock On Productions",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -60,7 +59,7 @@ const events = [
     slug: "artisan-craft-fair",
     city: "Seattle",
     location: "Seattle Exhibition Center",
-    date: new Date("2030-12-01T00:00:00.000Z"),
+    date: "2030-12-01T00:00:00.000Z",
     organizerName: "Craftsmanship Guild",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -73,7 +72,7 @@ const events = [
     slug: "jazz-fusion-night",
     city: "Austin",
     location: "Austin Jazz Lounge",
-    date: new Date("2030-11-29T00:00:00.000Z"),
+    date: "2030-11-29T00:00:00.000Z",
     organizerName: "Groove Masters Productions",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -86,7 +85,7 @@ const events = [
     slug: "indie-music-showcase",
     city: "Austin",
     location: "Austin Indie Spot",
-    date: new Date("2030-11-25T00:00:00.000Z"),
+    date: "2030-11-25T00:00:00.000Z",
     organizerName: "Indie Vibes Records",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -99,7 +98,7 @@ const events = [
     slug: "global-food-festival",
     city: "Seattle",
     location: "Seattle Waterfront Park",
-    date: new Date("2030-10-30T00:00:00.000Z"),
+    date: "2030-10-30T00:00:00.000Z",
     organizerName: "Foodie Ventures Inc.",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -112,7 +111,7 @@ const events = [
     slug: "tech-innovators-summit",
     city: "Seattle",
     location: "Seattle Convention Center",
-    date: new Date("2030-11-15T00:00:00.000Z"),
+    date: "2030-11-15T00:00:00.000Z",
     organizerName: "InnovateTech Inc.",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -125,7 +124,7 @@ const events = [
     slug: "enchanted-garden-gala",
     city: "Austin",
     location: "Austin Museum of Art",
-    date: new Date("2030-12-02T00:00:00.000Z"),
+    date: "2030-12-02T00:00:00.000Z",
     organizerName: "Cultural Garden Society",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -138,7 +137,7 @@ const events = [
     slug: "comedy-extravaganza",
     city: "Austin",
     location: "Austin Laugh Factory",
-    date: new Date("2030-11-06T00:00:00.000Z"),
+    date: "2030-11-06T00:00:00.000Z",
     organizerName: "Laugh Productions",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -151,7 +150,7 @@ const events = [
     slug: "science-space-expo",
     city: "Seattle",
     location: "Seattle Science Center",
-    date: new Date("2030-10-29T00:00:00.000Z"),
+    date: "2030-10-29T00:00:00.000Z",
     organizerName: "Cosmic Explorers Society",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -164,7 +163,7 @@ const events = [
     slug: "fashion-runway",
     city: "Austin",
     location: "Austin Fashion Week Venue",
-    date: new Date("2030-11-12T00:00:00.000Z"),
+    date: "2030-11-12T00:00:00.000Z",
     organizerName: "Chic Trends Agency",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -177,7 +176,7 @@ const events = [
     slug: "culinary-masterclass",
     city: "Seattle",
     location: "Seattle Epicurean Institute",
-    date: new Date("2030-12-02T00:00:00.000Z"),
+    date: "2030-12-02T00:00:00.000Z",
     organizerName: "Gourmet Chefs Society",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -190,7 +189,7 @@ const events = [
     slug: "film-buffs-symposium",
     city: "Austin",
     location: "Austin Film Institute",
-    date: new Date("2030-11-08T00:00:00.000Z"),
+    date: "2030-11-08T00:00:00.000Z",
     organizerName: "Cinema Society",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -203,7 +202,7 @@ const events = [
     slug: "literary-salon",
     city: "Seattle",
     location: "Seattle & Co. Bookstore",
-    date: new Date("2030-12-15T00:00:00.000Z"),
+    date: "2030-12-15T00:00:00.000Z",
     organizerName: "Words Society",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -216,7 +215,7 @@ const events = [
     slug: "wellness-expo",
     city: "Austin",
     location: "Austin Convention Center",
-    date: new Date("2030-11-30T00:00:00.000Z"),
+    date: "2030-11-30T00:00:00.000Z",
     organizerName: "Wellness Warriors Inc.",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -229,7 +228,7 @@ const events = [
     slug: "digital-art-symposium",
     city: "Seattle",
     location: "Seattle Art Gallery",
-    date: new Date("2030-11-01T00:00:00.000Z"),
+    date: "2030-11-01T00:00:00.000Z",
     organizerName: "Tech Creatives Collective",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -242,7 +241,7 @@ const events = [
     slug: "dance-fusion-festival",
     city: "Austin",
     location: "Austin Street Dance Studio",
-    date: new Date("2030-11-28T00:00:00.000Z"),
+    date: "2030-11-28T00:00:00.000Z",
     organizerName: "Rhythm Revolution",
     imageUrl:
       "https://bytegrad.com/course-assets/images/rn-image-3.png",
@@ -255,12 +254,17 @@ async function main() {
   console.log("🌱 Start seeding...");
 
   for (const event of events) {
-    const result = await db.upsert({
-      where: {
+    const data = {
+      ...event,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const result = await db.orm.public.Event.upsert({
+      create: data,
+      update: data,
+      conflictOn: {
         id: event.id,
       },
-      update: event,
-      create: event,
     });
 
     console.log(`Created/updated event: ${result.id} - ${result.name}`);
@@ -269,8 +273,10 @@ async function main() {
   console.log("🌱 Seeding finished.");
 }
 
-main().catch((error) => {
+main()
+  .catch((error) => {
     console.error("❌ Seeding failed:");
     console.error(error);
-    process.exit(1);
-  });
+    process.exitCode = 1;
+  })
+  .finally(() => db.close());
