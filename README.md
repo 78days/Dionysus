@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dionysus
+
+Dionysus is a server-rendered event discovery application built with Next.js, React, PostgreSQL, and Prisma 8's Contract API. Users can browse events by city, view event details, and navigate large result sets with database-backed pagination.
+
+## Features
+
+- Event listings filtered by city or displayed across all cities
+- Event detail pages addressed by a unique slug
+- PostgreSQL persistence through Neon
+- Prisma 8 Contract API with typed ORM queries
+- Database-backed pagination with six events per page
+- Responsive event cards with optimized Next.js images
+- ESM-compatible Next.js and Prisma configuration
+
+## Technology Stack
+
+- Next.js 14 App Router
+- React 18
+- TypeScript
+- Prisma 8 RC Contract API
+- `@prisma/orm-postgres`
+- Neon PostgreSQL
+- Tailwind CSS
+- Framer Motion
+
+## Requirements
+
+- Node.js 18.17 or newer
+- npm
+- A Neon PostgreSQL database
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure the database
+
+Create a `.env` file in the project root. Do not commit this file or expose the connection string publicly.
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require&channel_binding=require"
+```
+
+The same `DATABASE_URL` must be added to the Vercel project for every environment that needs database access, especially **Preview** and **Production**.
+
+### 3. Emit the Prisma contract
+
+The contract source is `src/prisma/contract.prisma`. Emit the generated runtime contract and TypeScript definitions after changing it:
+
+```bash
+npx prisma contract emit
+```
+
+The command generates:
+
+- `src/prisma/contract.json`
+- `src/prisma/contract.d.ts`
+
+These generated files should not be edited manually.
+
+### 4. Seed the database
+
+The seed script inserts or updates the 19 sample events using Prisma 8's ORM API:
+
+```bash
+npm run seed
+```
+
+The operation is idempotent. It uses each event's `id` as the conflict key and does not reset or delete the database.
+
+### 5. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Application Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+| Route | Description |
+| --- | --- |
+| `/` | Landing page |
+| `/events/all` | All events, ordered by date |
+| `/events/Austin` | Events filtered by city |
+| `/events/all?page=2` | Second page of all events |
+| `/events/Austin?page=2` | Second page of Austin events |
+| `/event/dj-practice-session` | Event detail page |
 
-## Learn More
+Pagination is handled on the server. Each request performs a filtered count and fetches only the requested page using Prisma's `offset()` and `limit()` methods. The current page contains six events.
 
-To learn more about Next.js, take a look at the following resources:
+## Prisma Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project uses Prisma 8's Contract API, not the legacy Prisma Client API.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The database client is defined in `src/prisma/db.ts` and is consumed through the typed ORM surface:
 
-## Deploy on Vercel
+```ts
+import { db } from "@/prisma/db";
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+const event = await db.orm.public.Event
+  .where({ slug })
+  .first();
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The event model is authored in `src/prisma/contract.prisma`. PostgreSQL `timestamptz` fields use `TimestamptzString`, which preserves timestamp values as strings and avoids requiring a global Temporal implementation in Node.js.
+
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Next.js development server |
+| `npm run build` | Create an optimized production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run Next.js linting |
+| `npm run contract:emit` | Regenerate Prisma contract artifacts |
+| `npm run seed` | Seed or update the sample events |
+| `npm run biome` | Run Biome and write formatting changes |
+
+## Production Deployment
+
+The project is configured for deployment on Vercel.
+
+1. Import the repository into Vercel.
+2. Use the project root as the Vercel root directory.
+3. Set `DATABASE_URL` in Vercel's Environment Variables settings.
+4. Select the appropriate environments, including Preview and Production.
+5. Deploy using the default Next.js build settings.
+
+The production build command is:
+
+```bash
+npm run build
+```
+
+The application requires `DATABASE_URL` at runtime because the event listing and event detail routes query Neon directly through Prisma.
+
+## Project Structure
+
+```text
+src/
+├── app/
+│   ├── event/[slug]/        Event detail route
+│   ├── events/[city]/       City listing and pagination route
+│   └── page.tsx             Landing page
+├── components/              Shared UI components
+├── lib/                     Application types and utilities
+└── prisma/
+    ├── contract.prisma      Contract source of truth
+    ├── contract.json        Generated contract artifact
+    ├── contract.d.ts        Generated TypeScript definitions
+    ├── db.ts                Prisma PostgreSQL client
+    └── seed.ts              Event seed script
+```
+
+## Security Notes
+
+- Never commit `.env` or database credentials.
+- Rotate the Neon database password if the connection string has been exposed.
+- Keep `contract.json` and `contract.d.ts` generated by Prisma rather than editing them directly.
+- Use the Prisma 8 ORM surface (`db.orm.public.Event`) instead of the legacy `PrismaClient` API.
