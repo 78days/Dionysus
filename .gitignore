@@ -38,3 +38,4 @@ node_modules/
 dist/
 .env
 .neon
+day2.md
